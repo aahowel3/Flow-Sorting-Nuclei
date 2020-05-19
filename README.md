@@ -23,5 +23,25 @@ in bam folder flowsort_curation_3_wc.sh extracts MQ of 2 bam files wc_toMacref, 
 
 in bam/MQtxtfiles_wc folder Rscript compares number of reads from mac flowsort sample and wc sample preferentailly mapped to mac/mic ref and number of reads from mic flowsort sample and wc sample preferentailly mapped to mac/mic ref using a Fisher's exact test - creates 2 2x2 tables where the line WC to Mic and WC to Mac overlaps between the 2 tables - can use either line - this gets you your Mac 60/40, Mic 23/77, and WC 70/30 table 
 
+Project 2: 
+
+in retention_scores folder 2 critical files are IES_coordinates.csv - locations of IESs in supercontigs and contig_to_chromosome.csv - locations of supercontigs in chromosomes
+
+IES_coordinates.csv list came from paper https://doi.org/10.7554/eLife.19090.001 supplementary file 3A
+contig_to_chromosome.csv from same paper supplemtary file 1C
+
+couple steps of messing with the raw IES_coordinates file to get it into an appropriate format
+        #manually removed colorful header and notes saved as csv
+        #scp'd to hines and converted to tsv with sed -E 's/("([^"]*)")?,/\2\t/g' IES_coordinates.csv > IES_coordinates.tsv
+        #created bedfile with columns I needed with cat IES_coordinates.tsv | awk '{print $4,$2,$3}' > IES_coordinates.bed
+        #whoops cutting columns made it space deliminated not tab fix that with  sed 's/ /\t/g' IES_coordinates.bed > IES_coordinates.2.bed
+        #now remove header of bedfile with sed -i 1d IES_coordinates.2.bed no output argument needed
+
+manually created contig_to_chromosome file, was embedded in a word doc 
+
+R script merge_contigs.R to convert IES coordinates in supercontigs to IES coordinates in mic chromosomes
+        #merge_contigs also splits the IESs_inmic_chromosomes into 5 files, by chromosome
+        #what is an IES in 1 chromosome location may not be in another
+final files are 1-5 chr#_IESs_inmic.tsv
 
 
