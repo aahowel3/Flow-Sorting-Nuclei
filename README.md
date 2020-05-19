@@ -44,4 +44,10 @@ R script merge_contigs.R to convert IES coordinates in supercontigs to IES coord
         #what is an IES in 1 chromosome location may not be in another
 final files are 1-5 chr#_IESs_inmic.tsv
 
+in rentention_scores/wc_alignment - coverage of wc sample to mic reference - used this alignment instead of wc to mic aligment in previous project because the previous alignment was of a subset of the wc sample 
+
+in retention_scores/coverage coverage.sh creates 3 folders - mac_coverage, mic_coverage, wc_coverage - and creates a coverage file of mic samples, mac samples, and wc samples using Samtools depth, pulling from previously generated alignments 
+
+
+
 
