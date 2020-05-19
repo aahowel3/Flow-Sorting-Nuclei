@@ -25,6 +25,10 @@ in bam/MQtxtfiles_wc folder Rscript compares number of reads from mac flowsort s
 
 Project 2: compare coverage levels of IES regions when mic, mac, and wc samples are mapped to the mic reference - mic sample coverage should be 2x in IES and 2x in non IES regions, mac sample coverage should be 0x in IES and 45x in non IES regions, and wc sample coverage should be 2x in IES and 47x non IES regions
 
+Part 1 compares IES v. Mac-destined region coverage per chromosome per sample
+Part 2 compares IES c. Mac-destined region coverage all chromosomes per samples
+
+Part 1
 in retention_scores folder 2 critical files are IES_coordinates.csv - locations of IESs in supercontigs and contig_to_chromosome.csv - locations of supercontigs in chromosomes
 
 IES_coordinates.csv list came from paper https://doi.org/10.7554/eLife.19090.001 supplementary file 3A
@@ -47,6 +51,14 @@ final files are 1-5 chr#_IESs_inmic.tsv
 in rentention_scores/wc_alignment - coverage of wc sample to mic reference - used this alignment instead of wc to mic aligment in previous project because the previous alignment was of a subset of the wc sample 
 
 in retention_scores/coverage coverage.sh creates 3 folders - mac_coverage, mic_coverage, wc_coverage - and creates a coverage file of mic samples, mac samples, and wc samples using Samtools depth, pulling from previously generated alignments 
+
+in retention_scores/coverage/ mac_coverage, mic_coverage, wc_coverage each folder has an analyze_coverage.sh - which is purely a way to loop each file back through to /coverage/analyze_coverage.R 
+
+/coverage/analyze_coverage.R compares the IES_inMic file and the coverage file to calculate mean coverage for IES regions and mean coverage for Mac-destined regions 
+
+Part 2
+in retention_scores/coverage/ mac_coverage, mic_coverage, wc_coverage each folder ALSO has an analyze_coverage_allchromo.sh which produces a text file wholechromo.__samplename__.text
+
 
 
 
