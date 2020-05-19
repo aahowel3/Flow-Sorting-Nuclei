@@ -23,7 +23,7 @@ in bam folder flowsort_curation_3_wc.sh extracts MQ of 2 bam files wc_toMacref, 
 
 in bam/MQtxtfiles_wc folder Rscript compares number of reads from mac flowsort sample and wc sample preferentailly mapped to mac/mic ref and number of reads from mic flowsort sample and wc sample preferentailly mapped to mac/mic ref using a Fisher's exact test - creates 2 2x2 tables where the line WC to Mic and WC to Mac overlaps between the 2 tables - can use either line - this gets you your Mac 60/40, Mic 23/77, and WC 70/30 table 
 
-Project 2: 
+Project 2: compare coverage levels of IES regions when mic, mac, and wc samples are mapped to the mic reference - mic sample coverage should be 2x in IES and 2x in non IES regions, mac sample coverage should be 0x in IES and 45x in non IES regions, and wc sample coverage should be 2x in IES and 47x non IES regions
 
 in retention_scores folder 2 critical files are IES_coordinates.csv - locations of IESs in supercontigs and contig_to_chromosome.csv - locations of supercontigs in chromosomes
 
