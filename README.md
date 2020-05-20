@@ -26,7 +26,7 @@ in bam/MQtxtfiles_wc folder Rscript compares number of reads from mac flowsort s
 Project 2: compare coverage levels of IES regions when mic, mac, and wc samples are mapped to the mic reference - mic sample coverage should be 2x in IES and 2x in non IES regions, mac sample coverage should be 0x in IES and 45x in non IES regions, and wc sample coverage should be 2x in IES and 47x non IES regions
 
 Part 1 compares IES v. Mac-destined region coverage per chromosome per sample
-Part 2 compares IES c. Mac-destined region coverage all chromosomes per samples
+Part 2 compares IES v. Mac-destined region coverage all chromosomes per samples
 
 Part 1
 in retention_scores folder 2 critical files are IES_coordinates.csv - locations of IESs in supercontigs and contig_to_chromosome.csv - locations of supercontigs in chromosomes
@@ -57,8 +57,16 @@ in retention_scores/coverage/ mac_coverage, mic_coverage, wc_coverage each folde
 /coverage/analyze_coverage.R compares the IES_inMic file and the coverage file to calculate mean coverage for IES regions and mean coverage for Mac-destined regions 
 
 Part 2
-in retention_scores/coverage/ mac_coverage, mic_coverage, wc_coverage each folder ALSO has an analyze_coverage_allchromo.sh which produces a text file wholechromo.__samplename__.text
+in retention_scores/coverage/ mac_coverage, mic_coverage, wc_coverage each folder ALSO has an analyze_coverage_allchromo.sh - which is purely a way to loop each file back through to /coverage/analyze_coverage_allchromo.R 
 
+/coverage/analyze_coverage_allchromo.R compares the IES_inMic file and the coverage file to calculate mean coverage for IES regions and mean coverage for Mac-destined regions - but still seperated per chromosome - what is an IES in the coordinates for 1 chromosome will not be an IES at the same coordinates in another 
+
+/coverage/analyze_coverage_allchromo.R produces the textfile wholechromo.__samplename__.text
+
+/coverage/analyze_coverage_allchromo_means.R takes the wholechromo.__samplename__.text and calculates the mean coverage for IES regions and mean coverage for Mac-destined regions across all chromosomes 
+easier to run in Rstudio than command line - need to manually edit the wholechromo.__samplename__.text bc the spacing on the output columns is weird 
+
+ignore anything with _nozeros filter on it, zero coverage positions are needed to get an accurate picture of how well each sample aligns to each reference 
 
 
 
