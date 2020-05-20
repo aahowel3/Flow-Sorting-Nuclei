@@ -68,6 +68,9 @@ easier to run in Rstudio than command line - need to manually edit the wholechro
 
 ignore anything with _nozeros filter on it, zero coverage positions are needed to get an accurate picture of how well each sample aligns to each reference 
 
+Project 3: IRS (IES Retention Score) for the micronuclear and macronuclear FACS samples 
 
-
+IRS = IES+ / IES+ and IRS- 
+IES+ = reads that align to an IES region but do not across the excision boundary (micronuclear) 
+IES- = reads that align to the excision boundary of an IES (macronuclear) 
 
