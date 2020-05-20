@@ -74,3 +74,4 @@ IRS = IES+ / IES+ and IRS-
 IES+ = reads that align to an IES region but do not across the excision boundary (micronuclear) 
 IES- = reads that align to the excision boundary of an IES (macronuclear) 
 
+reads are aligned to a concatenated Macronuclear reference + individual IES references combined reference genome 
