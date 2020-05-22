@@ -1,0 +1,9 @@
+In retention_scores:
+merge_contigs.R -> 1-5.tsv IESs in Mic chromosomes
+In coverage:
+coverage.sh -> coverage 1-5 3x, mac_coverage, mic_coverage, wc_coverage
+In mac_coverage, mic_coverage, wc_coverage:
+each has a analyze_coverage.sh, which loops through 1-5 to call back to 
+/coverage/analyze_coverage.R (note extension change)
+analyze_coverage.sh compares the IES_inMic file and the coverage file 
+to print out average coverage IES and average coverage Mac-dest

@@ -1,0 +1,20 @@
+#2 critical files
+        #IES_coordinates.csv - locations of IESs in supercontigs  
+        #contig_to_chromosome.csv - locations of supercontigs in chromosomes
+
+#IES_coordinates.csv list came from paper https://doi.org/10.7554/eLife.19090.001 supplementary file 3A 
+#contig_to_chromosome.csv from same paper supplemtary file 1C
+
+#couple steps of messing with the raw IES_coordinates file to get it into an appropriate format
+	#manually removed colorful header and notes saved as csv 
+	#scp'd to hines and converted to tsv with sed -E 's/("([^"]*)")?,/\2\t/g' IES_coordinates.csv > IES_coordinates.tsv
+	#created bedfile with columns I needed with cat IES_coordinates.tsv | awk '{print $4,$2,$3}' > IES_coordinates.bed 
+	#whoops cutting columns made it space deliminated not tab fix that with  sed 's/ /\t/g' IES_coordinates.bed > IES_coordinates.2.bed
+	#now remove header of bedfile with sed -i 1d IES_coordinates.2.bed no output argument needed 
+
+#manually created contig_to_chromosome file, was embedded in a word doc -_- 
+
+#had to use R script merge_contigs.R to convert IES coordinates in supercontigs to IES coordinates in mic chromosomes 
+	#merge_contigs also splits the IESs_inmic_chromosomes into 5 files, by chromosome 
+	#what is an IES in 1 chromosome location may not be in another
+#final output = chr#_IESs_inmic.tsv
