@@ -73,5 +73,10 @@ Project 3: IRS (IES Retention Score) for the micronuclear and macronuclear FACS 
 IRS = IES+ / IES+ and IRS- 
 IES+ = reads that align to an IES region but do not across the excision boundary (micronuclear) 
 IES- = reads that align to the excision boundary of an IES (macronuclear) 
-
 reads are aligned to a concatenated Macronuclear reference + individual IES references combined reference genome 
+
+in retention_scores2/make_bedfile.sh takes retention_scores/chrX_IESs.tsv (tsv of the joined IES_in_supercontig.csv and contig_to_chromosome.csv made through merge_contigs.R) pulls out last 2 columns of chrX_IESs.tsv (IES_in_chr_start and IES_in_chr_end) and creates a bedfile of just those 4 columns - chr, IES_in_chr_start, IES_in_chr_end, and IES name 
+
+retention_scores2/make_IESfasta.sh takes those bedfile positions and using bedtools getfasta and the micronucealr reference genome and pulls out all the basepairs in that bedfile range
+
+###updated so that the >names in the IES fasta file are now IESname_chrname_IES-inchr-startposition because there are duplicates IESs from supercontigs assembling to multiple places - how we get ~8000 IESs from previously 7551 listed IESs 
