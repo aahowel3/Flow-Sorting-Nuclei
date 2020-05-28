@@ -85,8 +85,8 @@ retention_scores2/make_Macsupercontigref.sh pulls out the 181 high confidence Ma
 
 in main folder 2931489_Howell the script IRSscore_alignment.sh aligns the Mac and Mic flowsorted samples to the mac+IES_reference.fasta reference (alignment script has to be in main folder bc thats where the trimmed flowsort reads are) 
 
-
-
+#have to sed -i '1d' .tsv first or it thinks the headers are arguments
+bash calculate_IRS.sh chr1_IESs_mac_excisionsites.tsv 
 
 
 
