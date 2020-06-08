@@ -87,10 +87,14 @@ retention_scores2/make_Macsupercontigref.sh pulls out the 181 high confidence Ma
 in main folder 2931489_Howell the script IRSscore_alignment_2.sh aligns the Mac and Mic flowsorted samples to the mac+IES_reference.fasta reference (alignment script has to be in main folder bc thats where the trimmed flowsort reads are) 
 creates a bam_IRS2 folder
 
-Rscript fix_chain.R takes mic/mac chain file and the chrX_IESs_inmic.tsv files as inputs to create the Chr_IESs_mac_excisionsites.tsvs 
+in bam_IRS2: 
+Rscript mic.mac.chain_perchromosome creates a chain file for each chromosome 
+chain files 1-5 and mic_inIES files 1-5 (from retention_scores/coverage) are fed into create_mac_excisionsites.sh (which uses create_mac_excisionsites.R) in pairs to create chrX_mac_excisionsites.tsvs for each chromosome
 
 The script calculate_IRS.sh calcualtes the IRS+ and IRS- scores using samtools view startcoor:endcoor on bamfiles produced by IRSscore_alignment_2.sh while looping through the coordinates in the Chr_IESs_mac_excisionsites.tsvs to create the text files chrXIRSscores_mic.txt and chrX IRSscores_mac.txt 
 #have to sed -i '1d' .tsv first or it thinks the headers are arguments
-bash calculate_IRS.sh chrX_IESs_mac_excisionsites.tsv 
+#usage 
+bash calculate_IRS_mac.sh chrX_IESs_mac_excisionsites.tsv > chrX_IESscores_macsample.txt 
+bash calculate_IRS_mic.sh chrX_IESs_mac_excisionsites.tsv > chrX_IESscores_micsample.txt 
 
-calculateIRSscores.R then takes the chrXIRSscores_mic.txt and chrX IRSscores_mac.txt files to calculate the mean IRS scores for each sample and create a barplot of the IRS distribution 
+calculateIRSscores.R then takes the chrXIRSscores_micsample.txt and chrX IRSscores_macsample.txt files to calculate the mean IRS scores for each sample and create a barplot of the IRS distribution 
