@@ -87,6 +87,8 @@ retention_scores2/make_Macsupercontigref.sh pulls out the 181 high confidence Ma
 in main folder 2931489_Howell the script IRSscore_alignment_2.sh aligns the Mac and Mic flowsorted samples to the mac+IES_reference.fasta reference (alignment script has to be in main folder bc thats where the trimmed flowsort reads are) 
 creates a bam_IRS2 folder
 
+mic/mac chain file located in /storage/datasets/Tetrahymena_thermophila/2017-04-17/bam/liftover 
+
 in bam_IRS2: 
 Rscript mic.mac.chain_perchromosome creates a chain file for each chromosome 
 chain files 1-5 and mic_inIES files 1-5 (from retention_scores/coverage) are fed into create_mac_excisionsites.sh (which uses create_mac_excisionsites.R) in pairs to create chrX_mac_excisionsites.tsvs for each chromosome
