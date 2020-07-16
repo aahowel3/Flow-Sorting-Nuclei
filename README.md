@@ -100,3 +100,5 @@ bash calculate_IRS_mac.sh chrX_IESs_mac_excisionsites.tsv > chrX_IESscores_macsa
 bash calculate_IRS_mic.sh chrX_IESs_mac_excisionsites.tsv > chrX_IESscores_micsample.txt 
 
 calculateIRSscores.R then takes the chrXIRSscores_micsample.txt and chrX IRSscores_macsample.txt files to calculate the mean IRS scores for each sample and create a barplot of the IRS distribution 
+
+calculateIRSscores_all.R consolidates scores over all 5 chromosomes
