@@ -102,3 +102,28 @@ bash calculate_IRS_mic.sh chrX_IESs_mac_excisionsites.tsv > chrX_IESscores_micsa
 calculateIRSscores.R then takes the chrXIRSscores_micsample.txt and chrX IRSscores_macsample.txt files to calculate the mean IRS scores for each sample and create a barplot of the IRS distribution 
 
 calculateIRSscores_all.R consolidates scores over all 5 chromosomes
+
+##Project 4 - investigating low coverage (table 2) of FACS samples compared to WC samples
+in work/aahowel3/flowsortdata/2931489_Howell/human_contamination 
+
+starting number of reads:
+Mic FACS trimmed 434228 x 2 R1/R2  = 868,456
+Mac FACS trimmed 503983 x 2 R1/R2 = 1,0007,966
+
+(don’t use bamfile to count starting number of reads because there could be more than the start number due to secondary and supplemental alignments or less than because of removed duplicates) 
+
+Samtools view -c -f 4 mic2mic (raw bam, number is the same for the rmdup bam) = 620,861
+620,861/868,456 = 71% of reads unaligned 
+Samtools view -c -f 4 mac2mac (raw bam, number is the same for the rmdup bam) = 345,639 
+345,639/1,0007,966 = 34% of reads unaligned 
+
+##ignore contamination_check.sh and associated bam/sam folders 
+contamination_check.sh aligns MIC and MAC samples to human reference 
+human_contamination/bam has this output and an MQtextfile folder looking at unaligned reads to the MIC/MAC references and aligned reads to the human ref
+however this doesnt tell us much besides there are reads mapping to the human genome 
+
+in human_contamination/blast_check there is a mac_contamination and mic_contamination folder
+each mic/mac folder has a blast_check.sh that has the commands that convert unmapped reads in the bam to fastqs, assembles them with spades, and blasts them 
+https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html 
+
+
