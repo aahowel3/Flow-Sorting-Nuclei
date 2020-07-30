@@ -126,4 +126,10 @@ in human_contamination/blast_check there is a mac_contamination and mic_contamin
 each mic/mac folder has a blast_check.sh that has the commands that convert unmapped reads in the bam to fastqs, assembles them with spades, and blasts them 
 https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html 
 
+#Project 5 - revisiting Fisher's exact tests 
+Fisher's metric that suggests poor mac enrichment conflicts with metrics 2/3 that suggest pretty decent MAC enrichment, could be an arbitrary assignment of preferential reads
+This round of fisher's will align reads to a MAC+MIC concat reference rather than aligning samples to each reference individually
+
+in flowsortdata/fishers_rerun the script fishers_rerun.sh is basically a copy of the original flowsort_curation2.sh that generates alignments but only to the combined MIC/MAC reference now 
+
 
