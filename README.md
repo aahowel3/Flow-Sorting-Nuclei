@@ -147,7 +147,7 @@ As a baseline comparision this metric tells us our flow sorting is good, the pro
 
 To investigate this simulated a "whole cell" set of reads mimicking the MAC and MIC polidies using ART illumina. 
 
-
+in flowsortdata/simulations/ the script wc_simulations.sh uses bamPEFragmentsize to estimate parameters for ART Illumina and then 2 seperate lines of ART Illumina commands sample reads from the MAC reference (45x) and MIC reference (2x). Mac and Mic R1 and Mac and Mic R2 are then concateneted togehter to create whole cell R1 simulation and whole cell R2 simulation - which is aligned to the MIC+MAC reference using the duplicatied script flowsortcuration_2_wc.sh also in flowsortdata/simulations/
 
 
 
