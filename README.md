@@ -127,9 +127,27 @@ each mic/mac folder has a blast_check.sh that has the commands that convert unma
 https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html 
 
 #Project 5 - revisiting Fisher's exact tests 
-Fisher's metric that suggests poor mac enrichment conflicts with metrics 2/3 that suggest pretty decent MAC enrichment, could be an arbitrary assignment of preferential reads
-This round of fisher's will align reads to a MAC+MIC concat reference rather than aligning samples to each reference individually
+Fisher's metric that suggests poor mac enrichment which conflicts with metrics 2/3 that suggest pretty decent MAC enrichment, could be an arbitrary assignment of preferential reads. This round of fisher's will align reads to a MAC+MIC concat reference rather than aligning samples to each reference individually
 
 in flowsortdata/fishers_rerun the script fishers_rerun.sh is basically a copy of the original flowsort_curation2.sh that generates alignments but only to the combined MIC/MAC reference now 
+
+for this fishers test instead of using an R script to compare preferentially mapped reads the number of reads that map exclusively to one reference or another are what makes up the Fisher's count data. All unmapped reads are removed (anything not aligning to one or the other is likely contamination). In each alignment (MAC FACS to MICMAC ref and MIC FACS to MICMAC ref) the following commands are run: 
+#count reads exclusively aligned to mac (scf) 
+samtools view FACSsample_toconcatref_mapped.bam | grep -v "XA:" | grep -v "SA:" | awk '$3 ~ /scf/' | wc -l
+#count reads exclusively aligned to mic (chr) 
+samtools view FACSsample_toconcatref_mapped.bam | grep -v "XA:" | grep -v "SA:" | awk '$3 ~ /scf/' | wc -l
+#can also run this command on mito (AF39) 
+
+Basic process has been to remove all reads that have an XA or an SA tag indicating a secondary or chimeric alignment (I am only inferring that this means they are reads from shared regions, I did not check each read to see if the location of the supplemental makes sense for it being shared or if the supplemental is even from a different reference) and then look at reads that align purely to one reference or the other (didn’t check where their mate aligned). I also didn’t distinguish from first in the pair v. second in the pair this time since were only looking at each read once in the alignment not across two alignments as with the previous Fisher’s exact test. 
+
+##Project 6 - simulating MIC/MAC reads 
+In the fishers rerun (and the original fishers now that I think about it) the WC baseline does not make sense. It is around 70/30 MAC/MIC and at first glance this looks correct - 1/3 of MIC lost during mac formation thats around 30% - but thats NOT what is being tested. Both fishers tests are asking "of reads that map preferentially/uniquely to one reference or the other - 30% of those unique reads are going to the MIC and 70% are going to the MAC". The MAC should not have enough unique sequences (just excision sites) to account for that many uniquely mapped reads. Almost everything that is in the MAC is in the MIC and the MIC should have the most unique sequences due to the IESs. 
+
+As a baseline comparision this metric tells us our flow sorting is good, the proportions for MIC/MAC are up in MIC FACS compared to WC and down in MIC/MAC in the MAC FACS but the proporitions of the WC themselves dont make sense. Even with the 45X ploidy of the MAC does that really increase the unique excision sites to 70% of unique reads? 
+
+To investigate this simulated a "whole cell" set of reads mimicking the MAC and MIC polidies using ART illumina. 
+
+
+
 
 
