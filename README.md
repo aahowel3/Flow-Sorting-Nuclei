@@ -140,6 +140,8 @@ samtools view FACSsample_toconcatref_mapped.bam | grep -v "XA:" | grep -v "SA:" 
 
 Basic process has been to remove all reads that have an XA or an SA tag indicating a secondary or chimeric alignment (I am only inferring that this means they are reads from shared regions, I did not check each read to see if the location of the supplemental makes sense for it being shared or if the supplemental is even from a different reference) and then look at reads that align purely to one reference or the other (didn’t check where their mate aligned). I also didn’t distinguish from first in the pair v. second in the pair this time since were only looking at each read once in the alignment not across two alignments as with the previous Fisher’s exact test. 
 
+/wholecellsubset/fishers_rerun_wc.sh does this process for the whole cell subset as well 
+
 ##Project 6 - simulating MIC/MAC reads 
 In the fishers rerun (and the original fishers now that I think about it) the WC baseline does not make sense. It is around 70/30 MAC/MIC and at first glance this looks correct - 1/3 of MIC lost during mac formation thats around 30% - but thats NOT what is being tested. Both fishers tests are asking "of reads that map preferentially/uniquely to one reference or the other - 30% of those unique reads are going to the MIC and 70% are going to the MAC". The MAC should not have enough unique sequences (just excision sites) to account for that many uniquely mapped reads. Almost everything that is in the MAC is in the MIC and the MIC should have the most unique sequences due to the IESs. 
 
@@ -148,6 +150,18 @@ As a baseline comparision this metric tells us our flow sorting is good, the pro
 To investigate this simulated a "whole cell" set of reads mimicking the MAC and MIC polidies using ART illumina. 
 
 in flowsortdata/simulations/ the script wc_simulations.sh uses bamPEFragmentsize to estimate parameters for ART Illumina and then 2 seperate lines of ART Illumina commands sample reads from the MAC reference (45x) and MIC reference (2x). Mac and Mic R1 and Mac and Mic R2 are then concateneted togehter to create whole cell R1 simulation and whole cell R2 simulation - which is aligned to the MIC+MAC reference using the duplicatied script flowsortcuration_2_wc.sh also in flowsortdata/simulations/
+
+###FIXING THINGS
+#####rerunning with added rDNA minichromosome reference 
+###for thoroughness' sake we should really rerun everything (FACS, simulations, 1x simulations) against a reference with the rDNA minichromosome 
+in fishers_rerun with the original mic_mac_combinedreference I concat'd on the X54512.1 rDNA reference from /check_rDNA to make mic_mac_combinedreferce_rDNA.fasta
+https://www.ebi.ac.uk/ena/browser/view/X54512 
+
+fishers_rerun_2.sh runs the MIC and MAC FACS against the combined refernece plus rDNA reference into bam2 and sam2 
+in fishers_rerun/wholecellsubset fishers_refun_wc_2.sh reruns WC against the combined refernece plus rDNA reference into bam2 and sam2
+
+####rerunning simulations with mitochondria removed from MAC reference 
+ALSO need to re-do the MAC sampling from a MAC reference that has had the mito reference removed from it 
 
 
 
