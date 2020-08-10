@@ -159,6 +159,9 @@ https://www.ebi.ac.uk/ena/browser/view/X54512
 
 fishers_rerun_2.sh runs the MIC and MAC FACS against the combined refernece plus rDNA reference into bam2 and sam2 
 in fishers_rerun/wholecellsubset fishers_refun_wc_2.sh reruns WC against the combined refernece plus rDNA reference into bam2 and sam2
+#make sure to remove unmapped reads first 
+samtools view -b -h -F 4 file.bam > mapped.bam
+
 
 ####rerunning simulations with mitochondria removed from MAC reference 
 ALSO need to re-do the MAC sampling from a MAC reference that has had the mito reference removed from it 
@@ -166,4 +169,5 @@ ALSO need to re-do the MAC sampling from a MAC reference that has had the mito r
 awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' /storage/reference_genomes/tetrahymena_thermophila/mac/mac.genome.fasta | grep -v -Ff remove.txt - | tr "\t" "\n" > mac.genome_nomito.fasta
 
 altered wc_simulations.sh to pull sequences from mac_nomito in the same folder instead of /storage and reran completely rather than copy into new folder
+same with simulations 1x
 
