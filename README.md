@@ -162,6 +162,8 @@ in fishers_rerun/wholecellsubset fishers_refun_wc_2.sh reruns WC against the com
 
 ####rerunning simulations with mitochondria removed from MAC reference 
 ALSO need to re-do the MAC sampling from a MAC reference that has had the mito reference removed from it 
+#to remove mito sequence from mac.genome.fasta
+awk '{ if ((NR>1)&&($0~/^>/)) { printf("\n%s", $0); } else if (NR==1) { printf("%s", $0); } else { printf("\t%s", $0); } }' /storage/reference_genomes/tetrahymena_thermophila/mac/mac.genome.fasta | grep -v -Ff remove.txt - | tr "\t" "\n" > mac.genome_nomito.fasta
 
-
+altered wc_simulations.sh to pull sequences from mac_nomito in the same folder instead of /storage and reran completely rather than copy into new folder
 
