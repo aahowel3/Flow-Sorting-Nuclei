@@ -142,6 +142,8 @@ Basic process has been to remove all reads that have an XA or an SA tag indicati
 
 /wholecellsubset/fishers_rerun_wc.sh does this process for the whole cell subset as well 
 
+R script for fishers test is on local machine /Documents/flowsortdata/fishers_rerun_ftests.R
+
 ##Project 6 - simulating MIC/MAC reads 
 In the fishers rerun (and the original fishers now that I think about it) the WC baseline does not make sense. It is around 70/30 MAC/MIC and at first glance this looks correct - 1/3 of MIC lost during mac formation thats around 30% - but thats NOT what is being tested. Both fishers tests are asking "of reads that map preferentially/uniquely to one reference or the other - 30% of those unique reads are going to the MIC and 70% are going to the MAC". The MAC should not have enough unique sequences (just excision sites) to account for that many uniquely mapped reads. Almost everything that is in the MAC is in the MIC and the MIC should have the most unique sequences due to the IESs. 
 
