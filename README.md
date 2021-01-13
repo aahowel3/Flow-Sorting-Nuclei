@@ -6,6 +6,7 @@ all scripts run in hines work/aahowel3/flowsortdata/2931489_Howell in tmux windo
 Project 1: comparing the number of preferenetially mapped reads from each sample (mic,mac,wc) to the mic and mac references
 
 flowsort_curation.sh runs trimmomatic on Mic and Mac pairs of fastq files and then fastqc on trimmmed files, fastqc reported of raw data came with results
+the TrueSeqv3 adapter trimming you did should be fine with the illumina universal adapter - but in reality you probably didnt need to do this
 
 flowsort_curation_2.sh runs alignment on Mic fastqs to Mic/Mac refs and Mac fastqs to Mic/Mac, sorts, index bams (sam folder is intermediate) 
 
