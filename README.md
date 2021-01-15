@@ -1,4 +1,5 @@
 # FlowSortProject
+Flow sorted Tetrahymena nuclei for mutation detection
 sequencing data from flow sorted Mic/Mac in Tetrahymena in work/aahowel3/flowsortdata/2931489_Howell
 all scripts run in hines work/aahowel3/flowsortdata/2931489_Howell in tmux window flowsort in conda env flowsortdata with trimmomatic and fastqc installed
 
