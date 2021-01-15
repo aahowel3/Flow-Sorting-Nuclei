@@ -1,12 +1,11 @@
 # FlowSortProject
-sequencing data from flow sorted Mic/Mac in Tetrahymena 
-
+sequencing data from flow sorted Mic/Mac in Tetrahymena in work/aahowel3/flowsortdata/2931489_Howell
 all scripts run in hines work/aahowel3/flowsortdata/2931489_Howell in tmux window flowsort in conda env flowsortdata with trimmomatic and fastqc installed
 
-Project 1: comparing the number of preferenetially mapped reads from each sample (mic,mac,wc) to the mic and mac references
+# Project 1: comparing the number of preferenetially mapped reads from each sample (mic,mac,wc) to the mic and mac references
 
 flowsort_curation.sh runs trimmomatic on Mic and Mac pairs of fastq files and then fastqc on trimmmed files, fastqc reported of raw data came with results
-the TrueSeqv3 adapter trimming you did should be fine with the illumina universal adapter - but in reality you probably didnt need to do this
+Used TrueSeqv3 adapter trimming for illumina universal adapter 
 
 flowsort_curation_2.sh runs alignment on Mic fastqs to Mic/Mac refs and Mac fastqs to Mic/Mac, sorts, index bams (sam folder is intermediate) 
 
@@ -24,7 +23,8 @@ in bam folder flowsort_curation_3_wc.sh extracts MQ of 2 bam files wc_toMacref, 
 
 in bam/MQtxtfiles_wc folder Rscript compares number of reads from mac flowsort sample and wc sample preferentailly mapped to mac/mic ref and number of reads from mic flowsort sample and wc sample preferentailly mapped to mac/mic ref using a Fisher's exact test - creates 2 2x2 tables where the line WC to Mic and WC to Mac overlaps between the 2 tables - can use either line - this gets you your Mac 60/40, Mic 23/77, and WC 70/30 table 
 
-Project 2: compare coverage levels of IES regions when mic, mac, and wc samples are mapped to the mic reference - mic sample coverage should be 2x in IES and 2x in non IES regions, mac sample coverage should be 0x in IES and 45x in non IES regions, and wc sample coverage should be 2x in IES and 47x non IES regions
+# Project 2: compare coverage levels of IES regions when mic, mac, and wc samples are mapped to the mic reference 
+mic sample coverage should be 2x in IES and 2x in non IES regions, mac sample coverage should be 0x in IES and 45x in non IES regions, and wc sample coverage should be 2x in IES and 47x non IES regions
 
 Part 1 compares IES v. Mac-destined region coverage per chromosome per sample
 Part 2 compares IES v. Mac-destined region coverage all chromosomes per samples
@@ -69,7 +69,7 @@ easier to run in Rstudio than command line - need to manually edit the wholechro
 
 ignore anything with _nozeros filter on it, zero coverage positions are needed to get an accurate picture of how well each sample aligns to each reference 
 
-Project 3: IRS (IES Retention Score) for the micronuclear and macronuclear FACS samples 
+# Project 3: IRS (IES Retention Score) for the micronuclear and macronuclear FACS samples 
 
 IRS = IES+ / IES+ and IRS- 
 IES+ = reads that align to an IES region but do not across the excision boundary (micronuclear) 
@@ -104,7 +104,7 @@ calculateIRSscores.R then takes the chrXIRSscores_micsample.txt and chrX IRSscor
 
 calculateIRSscores_all.R consolidates scores over all 5 chromosomes and graphs them in a histogram
 
-##Project 4 - investigating low coverage (table 2) of FACS samples compared to WC samples
+# Project 4 - investigating low coverage (table 2) of FACS samples compared to WC samples
 in work/aahowel3/flowsortdata/2931489_Howell/human_contamination 
 
 starting number of reads:
@@ -127,7 +127,7 @@ in human_contamination/blast_check there is a mac_contamination and mic_contamin
 each mic/mac folder has a blast_check.sh that has the commands that convert unmapped reads in the bam to fastqs, assembles them with spades, and blasts them 
 https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html 
 
-#Project 5 - revisiting Fisher's exact tests 
+# Project 5 - revisiting Fisher's exact tests 
 Fisher's metric that suggests poor mac enrichment which conflicts with metrics 2/3 that suggest pretty decent MAC enrichment, could be an arbitrary assignment of preferential reads. This round of fisher's will align reads to a MAC+MIC concat reference rather than aligning samples to each reference individually
 
 in flowsortdata/fishers_rerun the script fishers_rerun.sh is basically a copy of the original flowsort_curation2.sh that generates alignments but only to the combined MIC/MAC reference now 
@@ -145,7 +145,7 @@ Basic process has been to remove all reads that have an XA or an SA tag indicati
 
 R script for fishers test is on local machine /Documents/flowsortdata/fishers_rerun_ftests.R
 
-##Project 6 - simulating MIC/MAC reads 
+# Project 6 - simulating MIC/MAC reads 
 In the fishers rerun (and the original fishers now that I think about it) the WC baseline does not make sense. It is around 70/30 MAC/MIC and at first glance this looks correct - 1/3 of MIC lost during mac formation thats around 30% - but thats NOT what is being tested. Both fishers tests are asking "of reads that map preferentially/uniquely to one reference or the other - 30% of those unique reads are going to the MIC and 70% are going to the MAC". The MAC should not have enough unique sequences (just excision sites) to account for that many uniquely mapped reads. Almost everything that is in the MAC is in the MIC and the MIC should have the most unique sequences due to the IESs. 
 
 As a baseline comparision this metric tells us our flow sorting is good, the proportions for MIC/MAC are up in MIC FACS compared to WC and down in MIC/MAC in the MAC FACS but the proporitions of the WC themselves dont make sense. Even with the 45X ploidy of the MAC does that really increase the unique excision sites to 70% of unique reads? 
