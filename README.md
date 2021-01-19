@@ -91,10 +91,11 @@ creates a bam_IRS2 folder
 mic/mac chain file located in /storage/datasets/Tetrahymena_thermophila/2017-04-17/bam/liftover 
 
 in bam_IRS2: 
-Rscript mic.mac.chain_perchromosome creates a chain file for each chromosome 
-chain files 1-5 and mic_inIES files 1-5 (from retention_scores/coverage) are fed into create_mac_excisionsites.sh (which uses create_mac_excisionsites.R) in pairs to create chrX_mac_excisionsites.tsvs for each chromosome
+Rscript mic.mac.chain_perchromosome (on local in retention_scores2 and github) creates a chain file for each chromosome 
+chain files 1-5 and mic_inIES files 1-5 (from retention_scores/coverage) are fed into create_mac_excisionsites.sh (which uses create_mac_excisionsites.R - this is what determines viable IESs - those not overlapping mac scaffolds) in pairs to create chrX_mac_excisionsites.tsvs for each chromosome
 
-The script calculate_IRS.sh calcualtes the IRS+ and IRS- scores using samtools view startcoor:endcoor on bamfiles produced by IRSscore_alignment_2.sh while looping through the coordinates in the Chr_IESs_mac_excisionsites.tsvs to create the text files chrXIRSscores_mic.txt and chrX IRSscores_mac.txt 
+The script calculate_IRS.sh calcualtes the IRS+ and IRS- scores using samtools view startcoor:endcoor on bamfiles produced by IRSscore_alignment_2.sh while looping through the coordinates in the Chr_IESs_mac_excisionsites.tsvs to create the text files chrXIRSscores_mic.txt and chrX IRSscores_mac.txt
+Excision sites are truly just 1 or few bps - not a specific motfif or length 
 #have to sed -i '1d' .tsv first or it thinks the headers are arguments
 #usage 
 bash calculate_IRS_mac.sh chrX_IESs_mac_excisionsites.tsv > chrX_IESscores_macsample.txt 
