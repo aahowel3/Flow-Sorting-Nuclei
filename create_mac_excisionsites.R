@@ -7,6 +7,10 @@ chain=read.csv(args[1],sep="\t")
 IESmic=read.csv(args[2],sep="\t")
 
 #11111
+#this script is where we determine if an IES fits neatly within a scaffold or overlaps with mac scaffold - "non viable IES" 
+#p and q arguments are the where the IES starts in the mic chromosome and where it ends in the mic chromosome
+#if the start and end are within 10bp of 2 mac scaffolds - pull out the name of the scaffold the excision starts at (the return function)
+#the "refshift" refers to shifting one column of the chain file up to get the junctions between scaffolds 
 assign_mac_scaffoldstart=function(p,q) {
   chain = chain[(chain$queryend <= (p+10) & chain$queryshift >= (q-10)),] 
   return(as.character(chain$refname))} 
@@ -14,6 +18,7 @@ assign_mac_scaffoldstart=function(p,q) {
 IESmic$mac_scaffoldstart=mapply(assign_mac_scaffoldstart,IESmic$IES_in_chromosome_start, IESmic$IES_in_chromosome_end)
 
 #22222
+#if the start and end are within 10bp of 2 mac scaffolds - pull out the name of the scaffold where the excision ends (the return function)
 assign_mac_scaffoldend=function(p,q) {
   chain = chain[(chain$queryend <= (p+10) & chain$queryshift >= (q-10)),] 
   return(as.character(chain$refnameshift))} 
@@ -21,6 +26,7 @@ assign_mac_scaffoldend=function(p,q) {
 IESmic$mac_scaffoldend=mapply(assign_mac_scaffoldend,IESmic$IES_in_chromosome_start, IESmic$IES_in_chromosome_end)
 
 #33333
+#if the start and end are within 10bp of 2 mac scaffolds - pull out the start of the excision (the return function)
 assign_mac_excisionstart=function(p,q) {
   chain = chain[(chain$queryend <= (p+10) & chain$queryshift >= (q-10)),] 
   return(as.character(chain$refend))} 
@@ -28,15 +34,18 @@ assign_mac_excisionstart=function(p,q) {
 IESmic$mac_excisionstart=mapply(assign_mac_excisionstart,IESmic$IES_in_chromosome_start, IESmic$IES_in_chromosome_end)
 
 #44444
+#if the start and end are within 10bp of 2 mac scaffolds - pull out the end of the excision (the return function)
 assign_mac_excisionend=function(p,q) {
   chain = chain[(chain$queryend <= (p+10) & chain$queryshift >= (q-10)),] 
   return(as.character(chain$refshift))} 
 
 IESmic$mac_excisionend=mapply(assign_mac_excisionend,IESmic$IES_in_chromosome_start, IESmic$IES_in_chromosome_end)
 
+
 IESmic$IESpresent=ifelse(IESmic$mac_scaffoldstart == "character(0)", "absent", "present")
 IESmic=IESmic[!(IESmic$mac_scaffoldstart == "character(0)"),]
 IESmic$mac_scaff_gap=as.integer(IESmic$mac_excisionstart) - as.integer(IESmic$mac_excisionend)
+##Gap size - the point where 2 mac scaffolds come together (where an IES was cut out) should be almost a single point - if its not somethings wrong discard that junction
 IESmic$mac_scaff_check=ifelse(IESmic$mac_scaff_gap < 50 & -50 < IESmic$mac_scaff_gap, "viable", "notviable")
 IESmic=IESmic[!(IESmic$mac_scaff_check == "notviable"),]
 
