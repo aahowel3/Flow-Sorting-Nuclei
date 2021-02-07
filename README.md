@@ -137,7 +137,7 @@ for this fishers test instead of using an R script to compare preferentially map
 #count reads exclusively aligned to mac (scf) 
 samtools view FACSsample_toconcatref_mapped.bam | grep -v "XA:" | grep -v "SA:" | awk '$3 ~ /scf/' | wc -l
 #count reads exclusively aligned to mic (chr) 
-samtools view FACSsample_toconcatref_mapped.bam | grep -v "XA:" | grep -v "SA:" | awk '$3 ~ /scf/' | wc -l
+samtools view FACSsample_toconcatref_mapped.bam | grep -v "XA:" | grep -v "SA:" | awk '$3 ~ /chr/' | wc -l
 #can also run this command on mito (AF39) 
 
 Basic process has been to remove all reads that have an XA or an SA tag indicating a secondary or chimeric alignment (I am only inferring that this means they are reads from shared regions, I did not check each read to see if the location of the supplemental makes sense for it being shared or if the supplemental is even from a different reference) and then look at reads that align purely to one reference or the other (didn’t check where their mate aligned). I also didn’t distinguish from first in the pair v. second in the pair this time since were only looking at each read once in the alignment not across two alignments as with the previous Fisher’s exact test. 
@@ -157,7 +157,7 @@ in flowsortdata/simulations/ the script wc_simulations.sh uses bamPEFragmentsize
 
 ###FIXING THINGS
 #####rerunning with added rDNA minichromosome reference 
-###for thoroughness' sake we should really rerun everything (FACS, simulations, 1x simulations) against a reference with the rDNA minichromosome 
+###for thoroughness' sake we should really rerun everything (FACS, simulations, simulations_1x) against a reference with the rDNA minichromosome 
 in fishers_rerun with the original mic_mac_combinedreference I concat'd on the X54512.1 rDNA reference from /check_rDNA to make mic_mac_combinedreferce_rDNA.fasta
 https://www.ebi.ac.uk/ena/browser/view/X54512 
 
