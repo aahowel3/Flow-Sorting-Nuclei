@@ -178,6 +178,7 @@ same with simulations 1x
 #########Simulated MAC FACS and simulated MIC FACS 
 in /simulations ran the mac_simulated 1/2 against the combined MIC/MAC reference using flowsortcuration_2_mic_mac.sh - results in bam_mac
 and ran the mic_simulated 1/2 against the combined MIC/MAC reference using flowsortcuration_2_mic_mac.sh - results in bam_mic
+#sanity check mic #s are 80/292564 and 292484/292564
 #this metric checks how much MIC/MAC contamination we had in each sample 
 #the fqs used were at the original 2:45 polidy because they were generated using the ART illumina command in wc_simulations.sh
 
