@@ -2,6 +2,8 @@
 sequencing data from flow sorted Mic/Mac in Tetrahymena in work/aahowel3/flowsortdata/2931489_Howell
 all scripts run in hines work/aahowel3/flowsortdata/2931489_Howell in tmux window flowsort in conda env flowsortdata with trimmomatic and fastqc installed
 
+git hub repo used in paper from /work/aahowel3/flowsort_officialrepo
+
 # Project 1: comparing the number of preferenetially mapped reads from each sample (mic,mac,wc) to the mic and mac references
 
 flowsort_curation.sh runs trimmomatic on Mic and Mac pairs of fastq files and then fastqc on trimmmed files, fastqc reported of raw data came with results
